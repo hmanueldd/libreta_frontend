@@ -1,5 +1,5 @@
-<div class="container mt-5">
-    <h2 class="mb-4">Libreta de direcciones</h2>
+<div class="container mt-3">
+    <h2 class="mb-3">Libreta de direcciones</h2>
     <hr>
     <p-toast></p-toast>
     <div class="right align-body-end mb-2">
@@ -38,70 +38,78 @@
             <div class="col-6">
                 <button type="button" class="btn btn-sm btn-primary" (click)="search()">Buscar</button>
             </div>
-            <div class="col-6">
+            <div class="offset-4 col-2">
                 <button type="button" class="btn btn-sm btn-warning" (click)="clearFilters()">Limpiar filtros</button>
             </div>
         </div>
     </p-fieldset>
     
-    <p-table #dt 
-      styleClass="p-datatable-sm" 
-      [value]="contacts" dataKey="id" [rows]="10"
-      [rowsPerPageOptions]="[10, 25, 50]" [loading]="false" [paginator]="true"
-      [globalFilterFields]="['nombre', 'apellido']" [tableStyle]="{'min-width': '30rem'}">
-      <ng-template pTemplate="caption">
-        <div class="flax align-items-center justify-content-between">
-            <div class="input-group mb-3 g-3">
-                <div class="col-auto">
-                    <input class="form-control" type="text" (input)="filterGlobal(dt, $event)" placeholder="Buscar" />
+    <p-table #dt styleClass="p-datatable-sm" [scrollable]="true" scrollHeight="400px" [value]="contacts" dataKey="id"
+        [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [loading]="false" [paginator]="true"
+        sortMode="multiple"
+        
+        [globalFilterFields]="['nombre', 'apellido']" [tableStyle]="{'min-width': '30rem'}">
+        <ng-template pTemplate="caption">
+            <div class="flax align-items-center justify-content-between">
+                <div class="input-group mb-3 g-3">
+                    <div class="col-auto">
+                        <input class="form-control" type="text" (input)="filterGlobal(dt, $event)" placeholder="Buscar" />
+                    </div>
                 </div>
             </div>
-        </div>
-      </ng-template>
-      <ng-template pTemplate="header">
-        <tr>
-          <th>Id</th>
-          <th>Nombre</th>
-          <th>Apellido</th>
-          <th>Creado</th>
-          <th>Editar</th>
-          <th>Eliminar</th>
-        </tr>
-  
-      </ng-template>
-      <ng-template pTemplate="body" let-contact>
-        <tr>
-          <td>{{ contact.id }}</td>
-          <td>{{ contact.nombre }}</td>
-          <td>{{ contact.apellido }}</td>
-          <td>{{ contact.created_at | date:'dd/MM/yyyy' }}</td>
-          <td>
-            <button type="button" class="btn btn-primary btn-sm" (click)="view(contact)"><i class="pi pi-pencil"></i></button>
-          </td>
-          <td>
-            <button type="button" class="btn btn-danger btn-sm" (click)="del(contact)"><i class="pi pi-trash"></i></button>
-          </td>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="emptymessage">
-        <tr>
-          <td colspan="5">No hay registros</td>
-        </tr>
-      </ng-template>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="id">Id
+                    <p-sortIcon field="id" />
+                </th>
+                <th pSortableColumn="nombre">Nombre
+                    <p-sortIcon field="nombre" />
+                </th>
+                <th pSortableColumn="apellido">Apellido
+                    <p-sortIcon field="apellido" />
+                </th>
+                <th pSortableColumn="created_at">Creado
+                    <p-sortIcon field="created_at" />
+                </th>
+                <th>Editar</th>
+                <th>Eliminar</th>
+            </tr>
+    
+        </ng-template>
+        <ng-template pTemplate="body" let-contact>
+            <tr>
+                <td>{{ contact.id }}</td>
+                <td>{{ contact.nombre }}</td>
+                <td>{{ contact.apellido }}</td>
+                <td>{{ contact.created_at | date:'dd/MM/yyyy' }}</td>
+                <td>
+                    <button type="button" class="btn btn-primary btn-sm" (click)="view(contact)"><i
+                            class="pi pi-pencil"></i></button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger btn-sm" (click)="del(contact)"><i
+                            class="pi pi-trash"></i></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="5">No hay registros</td>
+            </tr>
+        </ng-template>
     </p-table>
     <!-- Modal de confirmación -->
     <p-confirmDialog #cd key="confirm1" icon="pi pi-exclamation-triangle" message="" [style]="{width: '350px'}"
-      acceptButtonStyleClass="p-button-text" rejectButtonStyleClass="p-button-text">
-      <ng-template pTemplate="header">
-          <h3>Listado de contactos</h3>
-      </ng-template>
-      <ng-template pTemplate="footer">
-          <button type="button" class="btn btn-danger me-2" 
-              (click)="cd.reject()"> No</button>
-          <button type="button" class="btn btn-success" 
-              (click)="cd.accept()"> Si</button>
-      </ng-template>
+        acceptButtonStyleClass="p-button-text" rejectButtonStyleClass="p-button-text">
+        <ng-template pTemplate="header">
+            <h3>Listado de contactos</h3>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <button type="button" class="btn btn-danger me-2" (click)="cd.reject()"> No</button>
+            <button type="button" class="btn btn-success" (click)="cd.accept()"> Si</button>
+        </ng-template>
     </p-confirmDialog>
-  </div>
+</div>
   
   
