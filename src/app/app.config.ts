@@ -8,6 +8,6 @@ import { importProvidersFrom } from '@angular/core';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes), provideClientHydration(),
-    importProvidersFrom(HttpClientModule),
+    importProvidersFrom(HttpClientModule),  
   ]
 };

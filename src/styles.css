@@ -2,3 +2,11 @@
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 @import "bootstrap/dist/css/bootstrap.min.css";
+@import "primeicons/primeicons.css";
+
+
+.align-body-end{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 10px;
+}
