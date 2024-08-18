@@ -280,6 +280,7 @@ export class ContactFormComponent implements OnInit {
 
     service.subscribe({
       next: (data) => {
+        debugger
         if (!data?.error) {
           this.spinner.hide();
           this.flagEmail = false;
@@ -290,17 +291,18 @@ export class ContactFormComponent implements OnInit {
             if (data?.message) {
               this.message.add({ severity: 'error', summary: 'Error', detail: data.message });
             } else {
-              this.message.add({ severity: 'error', summary: 'Error', detail: 'Ocurrio un error al enviar los datos.' });
+              this.message.add({ severity: 'error', summary: 'Error', detail: data.message? data.message : 'Ocurrio un error al enviar los datos.' });
             }
           })
         }
       },
       error: (data) => {
+        debugger
         this.spinner.hide().finally(() => {
           if (data) {
-            this.message.add({ severity: 'error', summary: 'Error', detail: data.message ? data.message : data });
+            this.message.add({ severity: 'error', summary: 'Error', detail: data.error.message ? data.error.message : 'Error' });
           } else {
-            this.message.add({ severity: 'error', summary: 'Error', detail: 'Ocurrio un error al enviar los datos.' });
+            this.message.add({ severity: 'error', summary: 'Error', detail: data.error.message ? data.error.message : 'Ocurrio un error al enviar los datos.' });
           }
         })
       }
