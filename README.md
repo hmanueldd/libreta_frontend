@@ -8,9 +8,13 @@ Node version: 20.9.0
 Clone this repository
 Run `git clone https://github.com/hmanueldd/libreta_frontend.git`
 
-Move into the folder
 
+Move into the folder
+Run `cd name-of-folder`
+
+## Install dependencies
 Run `npm install` to install dependencies
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Run project
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. 
 
