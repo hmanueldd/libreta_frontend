@@ -1,0 +1,285 @@
+<div class="container mt-5">
+    <h2 class="mb-4">Contacto <span *ngIf="contactId!=null">No. {{contactId}}</span></h2>
+    <p-toast></p-toast>
+    
+    <div class="row">
+        <div class="col-2">
+            <button class="btn btn-sm btn-info" (click)="back()">Volver</button>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-6">
+            <h5>Datos de contacto</h5>
+            <div class="row">
+                <form [formGroup]="contactForm">
+                    <div class="field col-8">
+                        <label>Nombre</label>
+                        <input class="form-control" type="text" id="nombre" formControlName="nombre" maxlength="200" />
+                        <small *ngIf="fControl['nombre'].hasError('required')" class="p-error">
+                            <strong>Nombre</strong> requerido.
+                        </small>
+                    </div>
+                    <div class="field col-8">
+                        <label>Apellido</label>
+                        <input class="form-control" type="text" id="apellido" formControlName="apellido" maxlength="200"  />
+                        <small *ngIf="fControl['apellido'].hasError('required')" class="p-error">
+                            <strong>Apellido</strong> requerido.
+                        </small>
+                    </div>
+                    
+                </form>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <button class="btn btn-sm btn-success" [disabled]="!contactForm.valid" (click)="save()">Guardar</button>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="row mt-4" *ngIf="contactId!=null">
+        <hr>
+        <div class="col-6">
+            <div class="row">
+                <div class="col-6">
+                    <h5>Teléfonos:</h5>
+                </div>
+                <div class="offset-4 col-2">
+                    <button class="btn btn-sm btn-success" (click)="viewTelefono(null)">Nuevo</button>
+                </div>
+            </div>
+            
+            <p-table #dt 
+                styleClass="p-datatable-sm" 
+                [value]="dataTelefonos" dataKey="id" [rows]="5"
+                [rowsPerPageOptions]="[10, 25, 50]" [loading]="false" [paginator]="true"
+                [globalFilterFields]="['email']" [tableStyle]="{'min-width': '30rem'}">
+                <ng-template pTemplate="header">
+                    <tr>
+                    <th>Id</th>
+                    <th>Teléfono</th>
+                    <th>Creado</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                    </tr>
+            
+                </ng-template>
+                <ng-template pTemplate="body" let-telefono>
+                    <tr>
+                    <td>{{ telefono.id }}</td>
+                    <td>{{ telefono.numero }}</td>
+                    <td>{{ telefono.created_at | date:'dd/MM/yyyy' }}</td>
+                    <td>
+                        <button type="button" class="btn btn-primary btn-sm" (click)="viewTelefono(telefono)"><i class="pi pi-pencil"></i></button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm" (click)="deleteRow(telefono.id,'telefono')"><i class="pi pi-trash"></i></button>
+                    </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                    <td colspan="5">No hay registros</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div class="col-6">
+            <div class="row" *ngIf="contactId!=null">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-6">
+                            <h5>Emails:</h5>
+                        </div>
+                        <div class="offset-4 col-2">
+                            <button class="btn btn-sm btn-success" (click)="viewEmail(null)">Nuevo</button>
+                        </div>
+                    </div>
+                    
+                    <p-table #dt 
+                        styleClass="p-datatable-sm" 
+                        [value]="dataEmails" dataKey="id" [rows]="5"
+                        [rowsPerPageOptions]="[10, 25, 50]" [loading]="false" [paginator]="true"
+                        [globalFilterFields]="['email']" [tableStyle]="{'min-width': '30rem'}">
+                        <ng-template pTemplate="header">
+                            <tr>
+                            <th>Id</th>
+                            <th>Email</th>
+                            <th>Creado</th>
+                            <th>Editar</th>
+                            <th>Eliminar</th>
+                            </tr>
+                    
+                        </ng-template>
+                        <ng-template pTemplate="body" let-email>
+                            <tr>
+                            <td>{{ email.id }}</td>
+                            <td>{{ email.email }}</td>
+                            <td>{{ email.created_at | date:'dd/MM/yyyy' }}</td>
+                            <td>
+                                <button type="button" class="btn btn-primary btn-sm" (click)="viewEmail(email)"><i class="pi pi-pencil"></i></button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger btn-sm" (click)="deleteRow(email.id,'email')"><i class="pi pi-trash"></i></button>
+                            </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                            <td colspan="5">No hay registros</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4 mb-5" *ngIf="contactId!=null">
+        <hr>
+        <div class="col-12">
+            <div class="row">
+                <div class="col-6">
+                    <h5>Direcciones:</h5>
+                </div>
+                <div class="offset-5 col-1">
+                    <button class="btn btn-sm btn-success" (click)="viewDireccion(null)">Nuevo</button>
+                </div>
+            </div>
+            <p-table #dt 
+                styleClass="p-datatable-sm" 
+                [value]="dataDirecciones" dataKey="id" [rows]="5"
+                [rowsPerPageOptions]="[10, 25, 50]" [loading]="false" [paginator]="true"
+                [globalFilterFields]="['email']" [tableStyle]="{'min-width': '30rem'}">
+                <ng-template pTemplate="header">
+                    <tr>
+                    <th>Id</th>
+                    <th>Dirección</th>
+                    <th>Estado</th>
+                    <th>Ciudad</th>
+                    <th>C.P.</th>
+                    <th>Creado</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                    </tr>
+            
+                </ng-template>
+                <ng-template pTemplate="body" let-direccion>
+                    <tr>
+                        <td>{{ direccion.id }}</td>
+                        <td>{{ direccion.direccion }}</td>
+                        <td>{{ direccion.ciudad }}</td>
+                        <td>{{ direccion.estado }}</td>
+                        <td>{{ direccion.codigo_postal }}</td>
+                        <td>{{ direccion.created_at | date:'dd/MM/yyyy' }}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary btn-sm" (click)="viewDireccion(direccion)"><i class="pi pi-pencil"></i></button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-sm" (click)="deleteRow(direccion.id,'direccion')"><i class="pi pi-trash"></i></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                    <td colspan="5">No hay registros</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+
+<!-- modal para guardar direccion -->
+<p-dialog [(visible)]="flagDireccion" [style]="{'width': '450px'}"  [header]="'Dirección'" [modal]="true" 
+    class="p-fluid">
+    <ng-template pTemplate="content">
+
+        <form [formGroup]="direccionForm">
+            <div class="row">
+                <div class="col-12">
+                    <label for="direccion">Dirección</label>
+                    <input type="text" class="form-control" name="direccion" id="direccion" formControlName="direccion">
+                </div>
+                <div class="col-6">
+                    <label for="ciudad">Ciudad</label>
+                    <input type="text" class="form-control" name="ciudad" id="ciudad" formControlName="ciudad">
+                </div>
+                <div class="col-6">
+                    <label for="estado">Estado</label>
+                    <input type="text" class="form-control" name="estado" id="estado" formControlName="estado">
+                </div>
+                <div class="col-6">
+                    <label for="cp">Código postal</label>
+                    <input type="text" class="form-control" name="cp" id="cp" formControlName="codigo_postal">
+                </div>
+            </div>
+        </form>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button class="btn btn-sm btn-success" [disabled]="!direccionForm.valid" (click)="saveDireccion()"> Guardar </button>
+    </ng-template>
+
+</p-dialog>
+
+
+<!-- modal para guardar telefono -->
+<p-dialog [(visible)]="flagTelefono" [style]="{'width': '450px'}"  [header]="'Teléfono'" [modal]="true" 
+    class="p-fluid">
+    <ng-template pTemplate="content">
+
+        <form [formGroup]="telefonoForm">
+            <div class="row">
+                <div class="col-12">
+                    <label for="numero">Teléfono</label>
+                    <input type="text" class="form-control" name="numero" id="numero" formControlName="numero">
+                </div>
+            </div>
+        </form>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button class="btn btn-sm btn-success" [disabled]="!telefonoForm.valid" (click)="saveTelefono()"> Guardar </button>
+    </ng-template>
+
+</p-dialog>
+
+
+<!-- modal para guardar email -->
+<p-dialog [(visible)]="flagEmail" [style]="{'width': '450px'}"  [header]="'Email'" [modal]="true" 
+    class="p-fluid">
+    <ng-template pTemplate="content">
+
+        <form [formGroup]="emailForm">
+            <div class="row">
+                <div class="col-12">
+                    <label for="email">Email</label>
+                    <input type="text" class="form-control" name="email" id="email" formControlName="email">
+                </div>
+            </div>
+        </form>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button class="btn btn-sm btn-success" [disabled]="!emailForm.valid" (click)="saveEmail()"> Guardar </button>
+    </ng-template>
+
+</p-dialog>
+
+<!-- Modal de confirmación -->
+<p-confirmDialog #cd key="confirm1" icon="pi pi-exclamation-triangle" message="" [style]="{width: '350px'}"
+acceptButtonStyleClass="p-button-text" rejectButtonStyleClass="p-button-text">
+<ng-template pTemplate="header">
+    <h3>Listado de contactos</h3>
+</ng-template>
+<ng-template pTemplate="footer">
+    <button type="button" class="btn btn-danger me-2" 
+        (click)="cd.reject()"> No</button>
+    <button type="button" class="btn btn-success" 
+        (click)="cd.accept()"> Si</button>
+</ng-template>
+</p-confirmDialog>
