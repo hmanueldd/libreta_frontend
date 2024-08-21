@@ -135,7 +135,7 @@ import { error } from 'console';
 
     if (!ciudad && !estado && !codigo_postal && !nombre && !telefono && !email) {
         // Display an error or disable the submit button
-        this.message.add({ severity: 'error', summary: 'Error', detail: 'Por favor llene al menos un campo' });
+        this.message.add({ severity: 'info', summary: 'Error', detail: 'Por favor llene al menos un campo' });
         return;
     }
     this.spinner.show();
