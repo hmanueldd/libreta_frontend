@@ -84,7 +84,7 @@ export class ContactFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.contactId = params['contactId'] ? +params['contactId'] : null;
+      this.contactId = params['contactId'] ? +params['contactId'] : this.contactId;
       this.inicial();
     });
   }
@@ -257,7 +257,7 @@ export class ContactFormComponent implements OnInit {
   newEmail(){
     this.emailForm = this.formBuilder.group({
       id:[null],
-      email:[null,[Validators.required,Validators.maxLength(200)]],
+      email:[null,[Validators.required,Validators.maxLength(200), Validators.email]],
       contacto_id:[this.contactId],
     });
   }
@@ -280,7 +280,6 @@ export class ContactFormComponent implements OnInit {
 
     service.subscribe({
       next: (data) => {
-        debugger
         if (!data?.error) {
           this.spinner.hide();
           this.flagEmail = false;
@@ -297,7 +296,6 @@ export class ContactFormComponent implements OnInit {
         }
       },
       error: (data) => {
-        debugger
         this.spinner.hide().finally(() => {
           if (data) {
             this.message.add({ severity: 'error', summary: 'Error', detail: data.error.message ? data.error.message : 'Error' });
@@ -422,7 +420,6 @@ export class ContactFormComponent implements OnInit {
   }
 
   back(){
-    //this.router.navigate(['/orden-produccion/listado'])
     this.location.back();
   }
   

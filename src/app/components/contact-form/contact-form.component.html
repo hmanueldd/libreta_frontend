@@ -13,18 +13,18 @@
             <h5>Datos de contacto</h5>
             <div class="row">
                 <form [formGroup]="contactForm">
-                    <div class="field col-8">
+                    <div class=" col-8">
                         <label>Nombre</label>
                         <input class="form-control" type="text" id="nombre" formControlName="nombre" maxlength="200" />
                         <small *ngIf="fControl['nombre'].hasError('required')" class="p-error">
-                            <strong>Nombre</strong> requerido.
+                            <strong>Nombre</strong> obligatorio.
                         </small>
                     </div>
-                    <div class="field col-8">
+                    <div class=" col-8">
                         <label>Apellido</label>
                         <input class="form-control" type="text" id="apellido" formControlName="apellido" maxlength="200"  />
                         <small *ngIf="fControl['apellido'].hasError('required')" class="p-error">
-                            <strong>Apellido</strong> requerido.
+                            <strong>Apellido</strong> obligatorio.
                         </small>
                     </div>
                     
@@ -200,18 +200,30 @@
                 <div class="col-12">
                     <label for="direccion">Dirección</label>
                     <input type="text" class="form-control" name="direccion" id="direccion" formControlName="direccion">
+                    <small *ngIf="fControlDir['direccion'].hasError('required')" class="p-error">
+                        <strong>Dirección</strong> obligatorio.
+                    </small>
                 </div>
                 <div class="col-6">
                     <label for="ciudad">Ciudad</label>
                     <input type="text" class="form-control" name="ciudad" id="ciudad" formControlName="ciudad">
+                    <small *ngIf="fControlDir['ciudad'].hasError('required')" class="p-error">
+                        <strong>Ciudad</strong> obligatorio.
+                    </small>
                 </div>
                 <div class="col-6">
                     <label for="estado">Estado</label>
                     <input type="text" class="form-control" name="estado" id="estado" formControlName="estado">
+                    <small *ngIf="fControlDir['estado'].hasError('required')" class="p-error">
+                        <strong>Estado</strong> obligatorio.
+                    </small>
                 </div>
                 <div class="col-6">
                     <label for="cp">Código postal</label>
                     <input type="text" class="form-control" name="cp" id="cp" formControlName="codigo_postal">
+                    <small *ngIf="fControlDir['codigo_postal'].hasError('required')" class="p-error">
+                        <strong>Código postal</strong> obligatorio.
+                    </small>
                 </div>
             </div>
         </form>
@@ -235,6 +247,9 @@
                 <div class="col-12">
                     <label for="numero">Teléfono</label>
                     <input type="text" class="form-control" name="numero" id="numero" formControlName="numero">
+                    <small *ngIf="fControlTel['numero'].hasError('required')" class="p-error">
+                        Campo obligatorio
+                    </small>
                 </div>
             </div>
         </form>
@@ -257,7 +272,9 @@
             <div class="row">
                 <div class="col-12">
                     <label for="email">Email</label>
-                    <input type="text" class="form-control" name="email" id="email" formControlName="email">
+                    <input type="email" class="form-control" name="email" id="email" formControlName="email">
+                    <small *ngIf="this.fControlEmail['email'].hasError('email')"  class="p-error">El campo debe tener un formato de email válido</small>
+                    <small *ngIf="this.fControlEmail['email'].hasError('required')"  class="p-error">Campo obligatorio</small>
                 </div>
             </div>
         </form>
